@@ -44,9 +44,17 @@ While relational databases like PostgreSQL do have [high availability](https://w
 
 ### Watching Keys
 
-### Strong Serializability
+Kubernetes needs to be able to watch for updates to a particular key in etcd. When an update is
+made, for example to the key-value pair containing a deployment resource, Kubernetes needs to take action
+such that the desired states becomes the actual state.
 
-#### TODO: Explain serializability, linearizability, MVCC, and why strict serializability is necessary.
+The `watch` operation in etcd provides the ability to easily do this. To achieve the same
+functionality in something like this in PostgreSQL requires more work.
+
+```go
+// For example in Go, this creates a channel where updates are sent
+watchChan := client.Watch(context.Background(), key)
+```
 
 ## Control Plane
 
