@@ -40,7 +40,7 @@ The short answer is that etcd offers high availability, watching keys, [strict s
 
 ### High Availability
 
-While relational databases like PostgreSQL
+While relational databases like PostgreSQL do have [high availability](https://www.postgresql.org/docs/current/high-availability.html) modes, they tend to require more configuration and setup steps than an etcd cluster. Some of these tools such as [stolon](https://github.com/sorintlab/stolon) or [Patroni](https://github.com/patroni/patroni) use etcd to handle cluster state.
 
 ### Watching Keys
 
