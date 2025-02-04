@@ -56,6 +56,26 @@ functionality in something like this in PostgreSQL requires more work.
 watchChan := client.Watch(context.Background(), key)
 ```
 
+### Strict Serializability
+
+The concept of strict serializability and its implementation in etcd is core to Kubernetes. Strict
+serializability simply means that all operations take place in a serial (one operation at a time) manner,
+and once an operation takes effect, it is visible to all subsequent operations.
+
+Most traditional databases do not have strict serializability due to the way they handle [transaction isolation](https://www.postgresql.org/docs/current/transaction-iso.html).
+Transactions modifying data, but this is not visible to other transactions until they commit,
+meaning it does not meet the level of strict serializability.
+
+To understand why this might be a problem, let's consider an example in which strict serializability
+does not exist. Suppose you have three etcd nodes, two followers and a leader. You have two
+processes, Process One that creates a deployment and Process Two that scales the deployment.
+Process One connects to the leader and creates a deployment, it then alerts Process Two of the
+deployment. The followers have not yet replicated the deployment from the leader. Process Two
+connects to a follower, but cannot get the deployment, causing an error.
+
+This scenero of a stale read is possible in databases without the consistency guarantees of strict
+serializability.
+
 ## Control Plane
 
 ## Data Plane
