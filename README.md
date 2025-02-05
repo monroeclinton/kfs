@@ -99,6 +99,15 @@ more in-depth overview.
 
 ### kube-scheduler
 
+The scheduler assigns pods to nodes based on resource availability, policies, affinity, and taints. When
+a pod is created it goes through two cycles in order to be assigned to a node.
+
+- Scheduling: The scheduler filters out nodes, scores nodes based on resources,
+- Binding: The scheduler sets the `nodeName` on the pod, assigning that pod to a node. It handles
+  failures, putting the pod back in the scheduling queue if necessary.
+
+I recommend the [blog post](https://www.awelm.com/posts/kube-scheduler/) by Akila Welihinda for more.
+
 ### kube-controller-manager
 
 ## Data Plane
