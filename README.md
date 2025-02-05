@@ -78,4 +78,27 @@ serializability.
 
 ## Control Plane
 
+The control plane manages the cluster state, schedules workloads, and provides an API to manage
+this. Each component of the control plane was built for resilience and to scale independently.
+
+### kube-apiserver
+
+The API Server is made up of several components that work together to form an interface to manage
+the resources in the cluster. Some of these components include:
+
+- API Server: The RESTful interface, handles authentication, and validation.
+- Aggregator: Allows for extending Kubernetes with custom APIs by implmeenting the `APIService`.
+- Controllers: Several controllers are run with the API server, including `kubernetesservice` and `systemnamespaces`.
+- The `kubernetesservice` controller ensures the service named `kubernetes` routes to the API server.
+  The `systemnamespaces` controller ensures the default namespaces exist (kube-system, kube-public, default, and kube-node-lease).
+- Endpoint Reconciler: This is for when there are multiple API servers, it sets the proper endpoints
+  on the `kubernetes` service.
+
+I recommend the blog post by [sobyte](https://www.sobyte.net/post/2022-07/kube-apiserver/) for a
+more in-depth overview.
+
+### kube-scheduler
+
+### kube-controller-manager
+
 ## Data Plane
