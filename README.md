@@ -110,4 +110,20 @@ I recommend the [blog post](https://www.awelm.com/posts/kube-scheduler/) by Akil
 
 ### kube-controller-manager
 
+The controller manager is made up of many different controllers that provide the default
+functionality to Kubernetes. These controllers watch the API server, and reconcile changes so that
+the cluster's actual state matches the desired state.
+
+These are some of those controllers, and what they do. Here is the [full list](https://github.com/kubernetes/kubernetes/blob/925cf7db71c5e36072f99e8b7129523f659ee3a1/cmd/kube-controller-manager/names/controller_names.go#L44).
+
+- EndpointSliceController: Ensures that endpoint slices point to the proper pods via endpoints.
+  By default there are a maximum of 100 endpoints per endpoint slice. This is to limit the size of
+  endpoint slices, if there was no limit the updates could become quite large.
+- PodGarbageCollectorController: Deletes pods that are terminated or who's node no longer exists.
+- DeploymentController: Creates and manages replica sets across deployments.
+- ReplicaSetController: Ensures that the proper number of pods are running for a replica set.
+- NodeIpamController: Allocates the IP range to nodes that will be used by pods.
+- NodeLifecycleController: Monitors that nodes are updating their health, updates taints based on
+  health checks, and updates pod `Ready` condition for pods on the node if the node is unhealthy.
+
 ## Data Plane
