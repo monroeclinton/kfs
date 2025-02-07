@@ -27,6 +27,11 @@ These components run a node.
 
 - kubelet: Manages containers based on assigned Pods.
 - kube-proxy: Manages the network traffic to containers.
+- CRI: The [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) allows the kubelet to manage containers through a
+  container runtime like [containerd](https://containerd.io/) or [cri-o](https://cri-o.io/) over a
+  gRPC API.
+- CNI: The [Container Network Interface](https://www.cni.dev/) is used to configure networking for containers through
+  a configuration file and CNI plugins.
 
 ## Design Choices
 
