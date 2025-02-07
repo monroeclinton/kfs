@@ -132,3 +132,43 @@ These are some of those controllers, and what they do. Here is the [full list](h
   health checks, and updates pod `Ready` condition for pods on the node if the node is unhealthy.
 
 ## Data Plane
+
+The data plane manages pods and network traffic, it is responsible for the execution of workloads.
+
+### kubelet
+
+A kubelet is the process running on a node. This process is represented as a `Node` in the API server.
+It requests the API server every so often to see which pods it should be running. When registering
+with the API server it
+
+### kube-proxy
+
+The kube-proxy is used to route external traffic to the pods for a service.
+
+#### IPVS
+
+IP Virtual Server is a module in the Linux kernel (ip_vs) that can be used load balance TCP/UDP traffic between a group of IP addresses.
+For a group of IP addresses a virtual IP address is given. IPVS routes local ports to this virtual
+IP address that will then be load balanced through IPVS.
+
+#### IPTables
+
+IPTables is a program in Linux that can be used to set packet filters that accept or drop network
+traffic. It can also be used to route traffic based on a set of rules. Kubernetes can use this to
+route traffic from a local port to a set of pods. The pod that is selected for a connection is
+randomly picked each time.
+
+### CRI
+
+Kubernetes uses the gRPC API defined by the Container Runtime Interface to tell the container
+runtime to do many actions including:
+
+- Manage images (pull/remove/list)
+- Manage processes (exec/attach)
+- Lifecycle containers (create/start/stop/remove/list)
+- Lifecycle pods (run/stop/remove/list)
+
+### CNI
+
+The CRI plugin uses the CNI plugin to manage networking between containers. This includes [IPAM](https://www.cni.dev/plugins/current/ipam/) (IP
+Address Management), configuring [network interfaces](https://www.cni.dev/plugins/current/main/bridge/), [firewalls](https://www.cni.dev/plugins/current/meta/firewall/), [port mapping](https://www.cni.dev/plugins/current/meta/portmap/), and more.
