@@ -39,12 +39,22 @@ func main() {
 		c.Next()
 	})
 
-	router.GET(apiserver.PodsRoute, routes.GetPods)
-	router.POST(apiserver.PodsRoute, routes.PostPods)
-	router.PATCH(apiserver.PodsRoute+"/:name", routes.PatchPods)
-	router.GET(apiserver.NodesRoute, routes.GetNodes)
-	router.POST(apiserver.NodesRoute, routes.PostNodes)
-	router.PATCH(apiserver.NodesRoute+"/:name/status", routes.PatchNodeStatus)
+	podController := &routes.RestStorageController[apiserver.Pod]{
+		BasePath: apiserver.PodsRoute,
+		FilterFunc: func(pod *apiserver.Pod, key, value string) bool {
+			if key == "spec.nodeName" {
+				return pod.Spec.NodeName == value
+			}
+			return false
+		},
+	}
+
+	nodeController := &routes.RestStorageController[apiserver.Node]{
+		BasePath: apiserver.NodesRoute,
+	}
+
+	podController.RegisterRoutes(router)
+	nodeController.RegisterRoutes(router)
 
 	router.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "This route does not exist"})

@@ -5,13 +5,10 @@ import (
 	types "k8s.io/apimachinery/pkg/types"
 )
 
-var EtcdPrefix = "/registry/"
+var EtcdPrefix = "/registry"
 
 var NodesRoute = "/nodes"
 var PodsRoute = "/pods"
-
-var NodesRegistry = EtcdPrefix + "nodes/"
-var PodsRegistry = EtcdPrefix + "pods/"
 
 var NodeKind = "Node"
 var PodKind = "Pod"
