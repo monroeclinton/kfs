@@ -61,3 +61,26 @@ type Pod struct {
 	Spec       PodSpec    `json:"spec"`
 	Status     PodStatus  `json:"status"`
 }
+
+type PodTemplateSpec struct {
+	Metadata ObjectMeta `json:"metadata"`
+	Spec     PodSpec    `json:"spec"`
+}
+
+type DeploymentSpec struct {
+	Replicas int             `json:"replicas"`
+	Selector LabelSelector   `json:"selector"`
+	Template PodTemplateSpec `json:"template"`
+}
+
+type DeploymentStatus struct {
+	Replicas int `json:"replicas"`
+}
+
+type Deployment struct {
+	ApiVersion string           `json:"apiVersion"`
+	Kind       string           `json:"kind"`
+	Metadata   ObjectMeta       `json:"metadata"`
+	Spec       DeploymentSpec   `json:"spec"`
+	Status     DeploymentStatus `json:"status"`
+}
