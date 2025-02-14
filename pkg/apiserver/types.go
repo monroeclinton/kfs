@@ -10,6 +10,7 @@ var EtcdPrefix = "/registry"
 var NodesRoute = "/nodes"
 var PodsRoute = "/pods"
 var DeploymentsRoute = "/deployments"
+var ReplicaSetsRoute = "/replicasets"
 
 var NodeKind = "Node"
 var PodKind = "Pod"

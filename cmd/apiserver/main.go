@@ -57,9 +57,14 @@ func main() {
 		BasePath: apiserver.DeploymentsRoute,
 	}
 
+	replicaSetController := &routes.RestStorageController[apiserver.ReplicaSet]{
+		BasePath: apiserver.ReplicaSetsRoute,
+	}
+
 	podController.RegisterRoutes(router)
 	nodeController.RegisterRoutes(router)
 	deploymentController.RegisterRoutes(router)
+	replicaSetController.RegisterRoutes(router)
 
 	router.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "This route does not exist"})
