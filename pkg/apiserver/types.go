@@ -84,3 +84,21 @@ type Deployment struct {
 	Spec       DeploymentSpec   `json:"spec"`
 	Status     DeploymentStatus `json:"status"`
 }
+
+type ReplicaSetSpec struct {
+	Replicas int             `json:"replicas"`
+	Selector LabelSelector   `json:"selector"`
+	Template PodTemplateSpec `json:"template"`
+}
+
+type ReplicaSetStatus struct {
+	Replicas int `json:"replicas"`
+}
+
+type ReplicaSet struct {
+	ApiVersion string           `json:"apiVersion"`
+	Kind       string           `json:"kind"`
+	Metadata   ObjectMeta       `json:"metadata"`
+	Spec       ReplicaSetSpec   `json:"spec"`
+	Status     ReplicaSetStatus `json:"status"`
+}
