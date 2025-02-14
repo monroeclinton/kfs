@@ -19,6 +19,10 @@ type ObjectMeta struct {
 	Labels []string  `json:"labels"`
 }
 
+type LabelSelector struct {
+	MatchLabels map[string]string `json:"matchLabels"`
+}
+
 type Node struct {
 	ApiVersion string     `json:"apiVersion"`
 	Kind       string     `json:"kind"`
