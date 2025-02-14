@@ -53,8 +53,13 @@ func main() {
 		BasePath: apiserver.NodesRoute,
 	}
 
+	deploymentController := &routes.RestStorageController[apiserver.Deployment]{
+		BasePath: apiserver.DeploymentsRoute,
+	}
+
 	podController.RegisterRoutes(router)
 	nodeController.RegisterRoutes(router)
+	deploymentController.RegisterRoutes(router)
 
 	router.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "This route does not exist"})
