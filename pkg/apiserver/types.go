@@ -22,7 +22,7 @@ type ObjectMeta struct {
 }
 
 type LabelSelector struct {
-	MatchLabels map[string]string `json:"matchLabels"`
+	MatchLabels []string `json:"matchLabels"`
 }
 
 type Node struct {
