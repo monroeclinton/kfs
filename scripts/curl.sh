@@ -132,6 +132,14 @@ EOF
     curl -X POST http://localhost:6443/deployments -d "$PAYLOAD"
 }
 
+list_deployments() {
+    curl -i http://localhost:6443/deployments
+}
+
+list_replicasets() {
+    curl -i http://localhost:6443/replicasets
+}
+
 echo "Choose an action:"
 echo "1) Create a node"
 echo "2) Update node status"
@@ -139,6 +147,8 @@ echo "3) List nodes"
 echo "4) Create a pod"
 echo "5) List pods"
 echo "6) Create deployment"
+echo "7) List deployments"
+echo "8) List replica sets"
 
 read -p "Enter your choice: " CHOICE
 
@@ -149,6 +159,8 @@ case $CHOICE in
     4) create_pod ;;
     5) list_pods ;;
     6) create_deployment ;;
+    7) list_deployments ;;
+    8) list_replicasets ;;
     *) echo "Invalid choice, please try again." ;;
 esac
 
